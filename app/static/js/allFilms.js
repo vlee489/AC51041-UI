@@ -1,5 +1,5 @@
 async function getAllFilms() {
-    const response = await fetch(`https://devops.vlee.me.uk/film/film/all`, {
+    const response = await fetch(`https://devops.vlee.me.uk/film/all`, {
         headers: {
             "Content-type": "application/json",
             "Authorization": getCookies().session

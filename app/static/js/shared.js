@@ -7,6 +7,18 @@ function getCookies(){
     return cookies;
 }
 
+function getURLPrams() {
+    /**
+     * Get URL params as object
+     */
+    const urlParams = new URLSearchParams(window.location.search);
+    let params = {};
+    urlParams.forEach((value, key) => {
+        params[key] = value;
+    });
+    return params;
+}
+
 async function logOut()
 {
   const response = await fetch(`https://devops.vlee.me.uk/session/logout`, {
