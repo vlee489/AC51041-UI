@@ -60,3 +60,14 @@ function getNewUrl(page, updateKey = null, newValue = null) {
     newLink = `${origin}/${page}?${newParams.toString()}`
     return newLink
 }
+
+function search(){
+    try{
+      let search = document.getElementById('search-bar').value;
+      let accountLink = getNewUrl("search.html", "query", search);
+      window.location = accountLink;
+    } catch (err) {
+      console.error(`Error: ${err}`)
+    }
+}
+  
