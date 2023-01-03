@@ -35,7 +35,6 @@ async function loadContinue() {
             continue_alert.close()
         } else {
             response = await response.json()
-            console.log(response)
             continue_time = response.pos;
         }
     })
@@ -56,6 +55,7 @@ async function loadFilm() {
 
 
 (async () => {
+    await getPermissions();
     await loadInfo();
     await loadFilm();
     await loadContinue();
@@ -77,7 +77,6 @@ player.on('play', function () {
 });
 
 player.on('pause', function () {
-    console.log('paused')
     fetch(`https://devops.vlee.me.uk/watch/film/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'POST',
@@ -86,7 +85,6 @@ player.on('pause', function () {
 });
 
 player.on('ended', function () {
-    console.log('finished')
     fetch(`https://devops.vlee.me.uk/watch/film/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'DELETE',

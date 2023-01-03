@@ -22,7 +22,7 @@ button.addEventListener('click', async _ => {
                 const now = DateTime.now();
                 const expSec = Math.round((exp.diff(now, 'seconds').toObject()).seconds);
                 document.cookie = `session=${data.session_id}; path=/; SameSite=Lax; max-age=${expSec};`
-                // window.location.replace("allFilms.html");
+                window.location.replace("index.html");
             });
         } else {
             // else, alert user to try again

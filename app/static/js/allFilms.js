@@ -29,5 +29,6 @@ async function getAllFilms() {
 }
 
 (async () => {
+    await getPermissions();
     await getAllFilms();
 })()

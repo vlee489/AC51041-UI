@@ -29,7 +29,6 @@ async function logOut()
     method: 'get',
   }).then(response => response.json())
   {
-    console.log('logged out');
     window.location.replace("login.html");
   }
 }
@@ -70,4 +69,33 @@ function search(){
       console.error(`Error: ${err}`)
     }
 }
-  
+ 
+function sortDict(obj) {
+    /**
+     * Sorts a dictionary by value
+     */
+    var items = Object.keys(obj).map(function(key) {
+        return [key, obj[key]];
+    });
+    items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    return items;
+}
+
+async function getPermissions() {
+    /**
+     * Get the permissions of the user
+     */
+    try {
+      const response = await fetch('https://devops.vlee.me.uk/user/', {
+        method: 'get',
+        headers: { "content-type": "application/json", "Authorization": getCookies().session },
+      })
+      if ([401, 404].includes(response.status)) {
+        window.location.replace("/login.html");
+      }
+    } catch (err) {
+      console.error(`Error: ${err}`)
+    }
+  }
