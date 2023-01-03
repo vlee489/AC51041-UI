@@ -30,11 +30,12 @@ async function loadContinue() {
     const response = await fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'get',
-    }).then(function (response) {
+    }).then(async (response) => {
         if (!response.ok) {
             continue_alert.close()
         } else {
-            response => response.json()
+            response = await response.json()
+            console.log(response)
             continue_time = response.pos;
         }
     })
