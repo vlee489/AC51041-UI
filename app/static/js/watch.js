@@ -27,7 +27,7 @@ async function loadInfo() {
 
 
 async function loadContinue() {
-    const response = await fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
+    const response = await fetch(`https://devops.vlee.me.uk/watch/film/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'get',
     }).then(async (response) => {
@@ -78,7 +78,7 @@ player.on('play', function () {
 
 player.on('pause', function () {
     console.log('paused')
-    fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
+    fetch(`https://devops.vlee.me.uk/watch/film/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'POST',
         body: JSON.stringify({ pos: player.currentTime() })
@@ -87,7 +87,7 @@ player.on('pause', function () {
 
 player.on('ended', function () {
     console.log('finished')
-    fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
+    fetch(`https://devops.vlee.me.uk/watch/film/${getURLPrams()['fim_id']}`, {
         headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'DELETE',
         body: JSON.stringify({ pos: player.currentTime() })
