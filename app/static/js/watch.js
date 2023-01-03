@@ -1,10 +1,11 @@
-let player = videojs('my-video', {aspectRatio: "16:9"});
+let player = videojs('my-video', { aspectRatio: "16:9" });
 let continue_alert = new bootstrap.Alert(document.getElementById('continue_film'))
 let continue_time = 0;
 let tags = [];
 let categories = [];
+let sent = false;
 
-async function loadInfo(){
+async function loadInfo() {
     const response = await fetch(`https://devops.vlee.me.uk/film/id/${getURLPrams()['fim_id']}`, {
         headers: {
             "Content-type": "application/json",
@@ -20,26 +21,26 @@ async function loadInfo(){
         document.getElementById("categories").innerHTML = `Category: ${response.categories}`;
         tags = response.tags;
         categories = response.categories;
-        
+
     }
 }
 
 
-async function loadContinue(){
+async function loadContinue() {
     const response = await fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
-        headers: {"content-type": "application/json", "Authorization": getCookies().session},
+        headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'get',
-    }).then(function(response) {
+    }).then(function (response) {
         if (!response.ok) {
             continue_alert.close()
-        }else{
+        } else {
             response => response.json()
             continue_time = response.pos;
         }
     })
 }
 
-async function loadFilm(){
+async function loadFilm() {
     const response = await fetch(`https://devops.vlee.me.uk/sign/film/id/${getURLPrams()['fim_id']}`, {
         headers: {
             "Content-type": "application/json",
@@ -48,7 +49,7 @@ async function loadFilm(){
         method: 'get',
     }).then(response => response.json())
     {
-        player.src({src: response.url,type: "video/mp4"})
+        player.src({ src: response.url, type: "video/mp4" })
     }
 }
 
@@ -60,36 +61,39 @@ async function loadFilm(){
 })()
 
 
-player.on('play', function() {
-    if (continue_time > 0){
+player.on('play', function () {
+    if (continue_time > 0) {
         continue_alert.close()
     }
-    fetch(`https://devops.vlee.me.uk/rec/`, {
-        headers: {"content-type": "application/json", "Authorization": getCookies().session},
-        method: 'POST',
-        body: JSON.stringify({"tags": tags, "categories": categories})
-    })
+    if (!sent) {
+        fetch(`https://devops.vlee.me.uk/rec/`, {
+            headers: { "content-type": "application/json", "Authorization": getCookies().session },
+            method: 'POST',
+            body: JSON.stringify({ "tags": tags, "categories": categories })
+        })
+        sent = true;
+    }
 });
 
-player.on('pause', function() {
+player.on('pause', function () {
     console.log('paused')
     fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
-        headers: {"content-type": "application/json", "Authorization": getCookies().session},
+        headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'POST',
-        body: JSON.stringify({pos: player.currentTime()})
+        body: JSON.stringify({ pos: player.currentTime() })
     })
 });
 
-player.on('ended', function() {
+player.on('ended', function () {
     console.log('finished')
     fetch(`https://devops.vlee.me.uk/watch/${getURLPrams()['fim_id']}`, {
-        headers: {"content-type": "application/json", "Authorization": getCookies().session},
+        headers: { "content-type": "application/json", "Authorization": getCookies().session },
         method: 'DELETE',
-        body: JSON.stringify({pos: player.currentTime()})
+        body: JSON.stringify({ pos: player.currentTime() })
     })
 });
 
-function resume(){
+function resume() {
     player.currentTime(continue_time)
     player.play()
     continue_alert.close()
