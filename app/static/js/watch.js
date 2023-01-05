@@ -67,7 +67,7 @@ player.on('play', function () {
         continue_alert.close()
     }
     if (!sent) {
-        fetch(`https://devops.vlee.me.uk/rec/`, {
+        fetch(`https://devops.vlee.me.uk/rec`, {
             headers: { "content-type": "application/json", "Authorization": getCookies().session },
             method: 'POST',
             body: JSON.stringify({ "tags": tags, "categories": categories })
