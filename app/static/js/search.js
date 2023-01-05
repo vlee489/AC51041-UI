@@ -31,5 +31,6 @@ async function getSearchFilms() {
 }
 
 (async () => {
+    await getPermissions();
     await getSearchFilms();
 })()

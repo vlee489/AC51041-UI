@@ -9,11 +9,11 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.2.0/build/global/luxon.min.js"
         integrity="sha256-mcPT8V1SydN4C/0U3ieJpgdZvuSGkJFUY5umq6POkCw=" crossorigin="anonymous"></script>
-    <script defer src="js/login.js"></script>
+    <script defer src="js/signup.js"></script>
     <link rel="stylesheet" href="css/navbar.css">
 
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Signup</title>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="signup.html">Signup</a>
+                    <a class="nav-link" href="login.html">Login</a>
                 </li>
 
             </ul>
@@ -37,8 +37,18 @@
 
     <div class="card card-body mx-auto pop-over" style="width: 800px">
         <div class="form-group pop-over ">
+            <label for="email">First Name: </label>
+            <input type="text" minlength="4" class="form-control pop-over" id="firstName" placeholder="Enter Username Here">
+            <br>
+        </div>
+        <div class="form-group pop-over ">
+            <label for="email">Last Name: </label>
+            <input type="text" minlength="4" class="form-control pop-over" id="lastName" placeholder="Enter Username Here">
+            <br>
+        </div>
+        <div class="form-group pop-over ">
             <label for="email">Email: </label>
-            <input type="text" class="form-control pop-over" id="email" placeholder="Enter Email Here">
+            <input type="email" class="form-control pop-over" id="email" placeholder="Enter Email Here">
             <br>
         </div>
         <div class="form-group pop-over">
@@ -48,6 +58,24 @@
         <br>
         <button class="btn btn-dark" id="post-btn">Submit</button>
     </div>
+
+    <div class="modal fade" id="signupComplete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Signup Complete</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Now you can log in!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="toLogin">Go to Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
 </body>
 
 </html>
